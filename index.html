@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>iLab Physics — Ohm's Law Simulator</title>
+ <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-icon">⚡</span>
+      <span class="logo-text">iLab <em>Physics</em></span>
+    </div>
+    <div class="header-title">Ohm's Law Circuit Simulator</div>
+    <div class="header-actions">
+      <button id="btn-clear" class="btn btn-ghost">🗑 Clear</button>
+      <button id="btn-run"   class="btn btn-primary" disabled>▶ Run Circuit</button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ── Toolbar ── -->                                                                                                                                                                                                
+  <aside class="toolbar">
+    <p class="toolbar-label">COMPONENTS</p>
+
+    <div class="comp-card" draggable="true" data-type="battery">
+      <div class="comp-preview">
+        <svg viewBox="0 0 60 40" width="60" height="40">
+          <line x1="5"  y1="20" x2="18" y2="20" stroke="#94a3b8" stroke-width="2"/>
+          <line x1="18" y1="10" x2="18" y2="30" stroke="#22d3ee" stroke-width="3"/>
+          <line x1="24" y1="14" x2="24" y2="26" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="30" y1="10" x2="30" y2="30" stroke="#22d3ee" stroke-width="3"/>
+          <line x1="36" y1="14" x2="36" y2="26" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="42" y1="10" x2="42" y2="30" stroke="#22d3ee" stroke-width="3"/>
+          <line x1="42" y1="20" x2="55" y2="20" stroke="#94a3b8" stroke-width="2"/>
+          <text x="26" y="38" font-size="7" fill="#64748b" font-family="Arial">+ –</text>
+        </svg>
+      </div>
+      <span>Battery</span>
+    </div>
+
+    <div class="comp-card" draggable="true" data-type="resistor">
+      <div class="comp-preview">
+        <svg viewBox="0 0 70 40" width="60" height="34">
+          <line x1="3"  y1="20" x2="14" y2="20" stroke="#94a3b8" stroke-width="2"/>
+          <rect x="14" y="13" width="42" height="14" rx="3" fill="none" stroke="#f59e0b" stroke-width="2"/>
+          <line x1="20" y1="13" x2="20" y2="27" stroke="#f59e0b" stroke-width="1"/>
+          <line x1="28" y1="13" x2="28" y2="27" stroke="#f59e0b" stroke-width="1"/>
+          <line x1="36" y1="13" x2="36" y2="27" stroke="#f59e0b" stroke-width="1"/>
+          <line x1="44" y1="13" x2="44" y2="27" stroke="#f59e0b" stroke-width="1"/>
+          <line x1="56" y1="20" x2="67" y2="20" stroke="#94a3b8" stroke-width="2"/>
+        </svg>
+      </div>
+      <span>Resistor</span>
+    </div>
+
+    <div class="comp-card" draggable="true" data-type="bulb">
+      <div class="comp-preview">
+        <svg viewBox="0 0 60 50" width="48" height="40">
+          <line x1="5"  y1="35" x2="18" y2="35" stroke="#94a3b8" stroke-width="2"/>
+          <circle cx="30" cy="24" r="13" fill="none" stroke="#fbbf24" stroke-width="2"/>
+          <path d="M24 32 Q30 22 36 32" fill="none" stroke="#fbbf24" stroke-width="1.5"/>
+          <line x1="27" y1="36" x2="33" y2="36" stroke="#fbbf24" stroke-width="2"/>
+          <line x1="28" y1="39" x2="32" y2="39" stroke="#fbbf24" stroke-width="2"/>
+          <line x1="42" y1="35" x2="55" y2="35" stroke="#94a3b8" stroke-width="2"/>
+        </svg>
+      </div>
+      <span>Bulb</span>
+    </div>
+
+    <div class="comp-card" draggable="true" data-type="switch">
+      <div class="comp-preview">
+        <svg viewBox="0 0 70 40" width="60" height="34">
+          <line x1="3"  y1="20" x2="20" y2="20" stroke="#94a3b8" stroke-width="2"/>
+          <circle cx="20" cy="20" r="3" fill="#22d3ee"/>
+          <line x1="20" y1="20" x2="44" y2="11" stroke="#22d3ee" stroke-width="2"/>
+          <circle cx="47" cy="20" r="3" fill="#22d3ee"/>
+          <line x1="47" y1="20" x2="67" y2="20" stroke="#94a3b8" stroke-width="2"/>
+        </svg>
+      </div>
+      <span>Switch</span>
+    </div>
+
+    <div class="comp-card" draggable="true" data-type="ammeter">
+      <div class="comp-preview">
+        <svg viewBox="0 0 70 40" width="60" height="34">
+          <line x1="3"  y1="20" x2="17" y2="20" stroke="#94a3b8" stroke-width="2"/>
+          <circle cx="35" cy="20" r="15" fill="none" stroke="#4ade80" stroke-width="2"/>
+          <text x="29" y="25" font-size="13" fill="#4ade80" font-family="Arial" font-weight="bold">A</text>
+          <line x1="53" y1="20" x2="67" y2="20" stroke="#94a3b8" stroke-width="2"/>
+        </svg>
+      </div>
+      <span>Ammeter</span>
+    </div>
+
+    <div class="comp-card" draggable="true" data-type="voltmeter">
+      <div class="comp-preview">
+        <svg viewBox="0 0 70 40" width="60" height="34">
+          <line x1="3"  y1="20" x2="17" y2="20" stroke="#94a3b8" stroke-width="2"/>
+          <circle cx="35" cy="20" r="15" fill="none" stroke="#c084fc" stroke-width="2"/>
+          <text x="29" y="25" font-size="13" fill="#c084fc" font-family="Arial" font-weight="bold">V</text>
+          <line x1="53" y1="20" x2="67" y2="20" stroke="#94a3b8" stroke-width="2"/>
+        </svg>
+      </div>
+      <span>Voltmeter</span>
+    </div>
+
+    <div class="toolbar-divider"></div>
+    <p class="toolbar-label">INSTRUCTIONS</p>
+    <ol class="instructions">
+      <li>Drag components onto the canvas</li>
+      <li>Hover a component to see its connection ports (dots)</li>
+      <li>Click a port to start a wire, click another port to connect</li>
+      <li>Add a Battery, at least one Resistor, close the circuit</li>
+      <li>Hit <strong>Run Circuit</strong> to calculate</li>
+    </ol>
+  </aside>
+
+  <!-- ── Canvas ── -->
+  <main class="canvas-area">
+    <svg id="wire-layer"></svg>
+    <div id="workspace"></div>
+
+    <div class="canvas-hint" id="canvas-hint">
+      Drag components here to begin building your circuit
+    </div>
+  </main>
+
+  <!-- ── Results Panel ── -->
+  <aside class="results-panel">
+    <p class="toolbar-label">READINGS</p>
+
+    <div class="meter-card">
+      <div class="meter-label">Voltage</div>
+      <div class="meter-value" id="res-voltage">— V</div>
+      <div class="meter-bar"><div class="meter-fill voltage-fill" id="bar-voltage"></div></div>
+    </div>
+
+    <div class="meter-card">
+      <div class="meter-label">Current</div>
+      <div class="meter-value" id="res-current">— A</div>
+      <div class="meter-bar"><div class="meter-fill current-fill" id="bar-current"></div></div>
+    </div>
+
+    <div class="meter-card">
+      <div class="meter-label">Resistance</div>
+      <div class="meter-value" id="res-resistance">— Ω</div>
+      <div class="meter-bar"><div class="meter-fill resistance-fill" id="bar-resistance"></div></div>
+    </div>
+
+    <div class="meter-card">
+      <div class="meter-label">Power</div>
+      <div class="meter-value" id="res-power">— W</div>
+      <div class="meter-bar"><div class="meter-fill power-fill" id="bar-power"></div></div>
+    </div>
+
+    <div class="ohm-formula">
+      <div class="formula-title">Ohm's Law</div>
+      <div class="formula">V = I × R</div>
+      <div class="formula-sub">P = V × I</div>
+    </div>
+
+    <div class="toolbar-divider"></div>
+    <p class="toolbar-label">COMPONENT VALUES</p>
+    <div id="component-props"></div>
+
+    <div class="toolbar-divider"></div>
+    <p class="toolbar-label">CIRCUIT STATUS</p>
+    <div id="circuit-status" class="status-msg status-idle">No circuit yet</div>
+  </aside>
+
+</div>
+
+<!-- Context menu for component config -->
+<div id="ctx-menu" class="ctx-menu hidden">
+  <div class="ctx-title" id="ctx-title">Configure</div>
+  <label>Value: <input type="number" id="ctx-value" min="0.1" step="0.1"/> <span id="ctx-unit"></span></label>
+  <button id="ctx-ok" class="btn btn-primary btn-sm">OK</button>
+  <button id="ctx-delete" class="btn btn-danger btn-sm">Delete</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
